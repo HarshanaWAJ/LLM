@@ -1,0 +1,163 @@
+{"input_text": "Hello", "animation_hint": "waves hand"}
+{"input_text": "Hi", "animation_hint": "waves hand"}
+{"input_text": "Good morning", "animation_hint": "stretches and smiles"}
+{"input_text": "Goodbye", "animation_hint": "waves and walks away"}
+{"input_text": "Thank you", "animation_hint": "slight bow"}
+{"input_text": "Please help me", "animation_hint": "raises both hands"}
+{"input_text": "I need water", "animation_hint": "thirsty"}
+{"input_text": "I am hungry", "animation_hint": "holds stomach"}
+{"input_text": "I am thirsty", "animation_hint": "thirsty"}
+{"input_text": "I need the bathroom", "animation_hint": "crosses legs"}
+{"input_text": "Can you come here?", "animation_hint": "come here"}
+{"input_text": "Wait a moment", "animation_hint": "wait here"}
+{"input_text": "Stop that", "animation_hint": "stop that"}
+{"input_text": "Sit down please", "animation_hint": "points to chair"}
+{"input_text": "Stand up", "animation_hint": "hand pointing upward"}
+{"input_text": "Walk with me", "animation_hint": "come here"}
+{"input_text": "Follow me", "animation_hint": "come here"}
+{"input_text": "Where is the exit?", "animation_hint": "looks around"}
+{"input_text": "I am tired", "animation_hint": "tired"}
+{"input_text": "I need to rest", "animation_hint": "rest"}
+{"input_text": "Look at this", "animation_hint": "points to object"}
+{"input_text": "Be careful", "animation_hint": "warning"}
+{"input_text": "Danger nearby", "animation_hint": "warning"}
+{"input_text": "Slow down", "animation_hint": "hand moving down"}
+{"input_text": "Hurry up", "animation_hint": "hurryup"}
+{"input_text": "It’s okay", "animation_hint": "ok"}
+{"input_text": "I am lost", "animation_hint": "confusing"}
+{"input_text": "Show me the way", "animation_hint": "points ahead"}
+{"input_text": "I am cold", "animation_hint": "shivering"}
+{"input_text": "Today is a hot day", "animation_hint": "hot"}
+{"input_text": "I am hot", "animation_hint": "hot"}
+{"input_text": "I feel sick", "animation_hint": "sick"}
+{"input_text": "I have a stomacache", "animation_hint": "sick"}
+{"input_text": "Call the doctor", "animation_hint": "call the doctor"}
+{"input_text": "I don’t understand", "animation_hint": "shrugs"}
+{"input_text": "Please repeat", "animation_hint": "repeat"}
+{"input_text": "I like it", "animation_hint": "like it"}
+{"input_text": "I don’t like it", "animation_hint": "dislike"}
+{"input_text": "Thank you very much", "animation_hint": "slight bow"}
+{"input_text": "Nice to meet you", "animation_hint": "handshake"}
+{"input_text": "Good job", "animation_hint": "good job"}
+{"input_text": "Go straight", "animation_hint": "points ahead"}
+{"input_text": "Turn left", "animation_hint": "points left"}
+{"input_text": "Turn right", "animation_hint": "points right"}
+{"input_text": "Go upstairs", "animation_hint": "walks up steps"}
+{"input_text": "Enter here", "animation_hint": "opening the door"}
+{"input_text": "Sit here", "animation_hint": "points to chair"} 
+{"input_text": "Wait here", "animation_hint": "wait here"}
+{"input_text": "Jump over", "animation_hint": "jumping motion"}
+{"input_text": "Go faster", "animation_hint": "running fast"}   
+{"input_text": "Walk slowly", "animation_hint": "walk"}
+{"input_text": "Run", "animation_hint": "running fast"}
+{"input_text": "Running fast", "animation_hint": "running fast"}
+{"input_text": "Running slow", "animation_hint": "running slow"}
+{"input_text": "Cross the road", "animation_hint": "cross the road"}
+{"input_text": "Stop here", "animation_hint": "stop that"}
+{"input_text": "Wait for me", "animation_hint": "wait for me"}
+{"input_text": "Move forward", "animation_hint": "points ahead"}   
+{"input_text": "Stay there", "animation_hint": "points ahead"}  
+{"input_text": "I am carrying a box", "animation_hint": "carrying a box"}   
+{"input_text": "I am going to school", "animation_hint": "school"}  
+{"input_text": "Good night", "animation_hint": "good night"}   
+{"input_text": "I am painting", "animation_hint": "painting"}  
+{"input_text": "I am drawing", "animation_hint": "painting"}  
+{"input_text": "I am riding a bicycle", "animation_hint": "riding bicycle"}  
+{"input_text": "I am having a fever", "animation_hint": "fever"} 
+{"input_text": "I am happy", "animation_hint": "happy"}
+{"input_text": "I am sad", "animation_hint": "head down"}
+{"input_text": "I am angry", "animation_hint": "angry"}
+{"input_text": "I am surprised", "animation_hint": "surprise"}
+{"input_text": "I am bored", "animation_hint": "bored"}
+{"input_text": "I am excited", "animation_hint": "happy"}  
+{"input_text": "I am confused", "animation_hint": "shrugs"}
+{"input_text": "I am stressed", "animation_hint": "stressed"}
+{"input_text": "I am with a laptop", "animation_hint": "working laptop"}  
+{"input_text": "I got a certificate", "animation_hint": "certificate"}
+{"input_text": "I won", "animation_hint": "winner"} 
+{"input_text": "I am a winner", "animation_hint": "winner"}   
+{"input_text": "weight lifting", "animation_hint": "weight lifting"}  
+{"input_text": "I am waiting for a reply", "animation_hint": "waiting reply"} 
+{"input_text": "I am nervous", "animation_hint": "stressed"}   
+{"input_text": "I am surfing", "animation_hint": "surfing"} 
+{"input_text": "I watching with a telescope", "animation_hint": "telescope"} 
+{"input_text": "I am skipping", "animation_hint": "skipping"}  
+{"input_text": "I am singing", "animation_hint": "sing"}  
+{"input_text": "I did shopping", "animation_hint": "shopping"}   
+{"input_text": "I am taking a selfie", "animation_hint": "selfie"} 
+{"input_text": "I am in pain", "animation_hint": "hand over heart"}    
+{"input_text": "I have a problem", "animation_hint": "problem"} 
+{"input_text": "I have an issue in my laptop", "animation_hint": "problem"} 
+{"input_text": "I am delivering a letter", "animation_hint": "postman"} 
+{"input_text": "I am playing basketball", "animation_hint": "basketball"} 
+{"input_text": "I am playing hockey", "animation_hint": "playing hockey"} 
+{"input_text": "I am playing the guitar", "animation_hint": "playing guitar"}   
+{"input_text": "I am playing golf", "animation_hint": "playing golf"}  
+{"input_text": "I am playing a flute", "animation_hint": "playing flute"} 
+{"input_text": "Be quiet", "animation_hint": "quiet"} 
+{"input_text": "Location tracking", "animation_hint": "location"}  
+{"input_text": "I am kicking", "animation_hint": "kicking"}  
+{"input_text": "I miss you", "animation_hint": "hand over heart"}
+{"input_text": "I’m feeling lonely", "animation_hint": "hand over heart"}  
+{"input_text": "I love you", "animation_hint": "love"}  
+{"input_text": "Shouting", "animation_hint": "shouting"} 
+{"input_text": "That surprised me", "animation_hint": "surprise"}
+{"input_text": "I got an idea", "animation_hint": "idea"} 
+{"input_text": "I am thankful", "animation_hint": "slight bow"}
+{"input_text": "That was funny", "animation_hint": "funny"}
+{"input_text": "I am cooking", "animation_hint": "cooking"}
+{"input_text": "I am eating", "animation_hint": "eating"}
+{"input_text": "I am drinking", "animation_hint": "drinking"}
+{"input_text": "I am washing hands", "animation_hint": "washing hands"}
+{"input_text": "I am brushing teeth", "animation_hint": "brushing"}
+{"input_text": "I am bathing", "animation_hint": "bathing"}
+{"input_text": "I am going to office", "animation_hint": "going office"}
+{"input_text": "I am fighting", "animation_hint": "fighting"}  
+{"input_text": "I came home", "animation_hint": "came home"}
+{"input_text": "I am studying", "animation_hint": "book open"}  
+{"input_text": "I am writing", "animation_hint": "writing"}
+{"input_text": "I am reading", "animation_hint": "reading"}
+{"input_text": "I am exercising", "animation_hint": "exercising"}  
+{"input_text": "I am typing", "animation_hint": "typing"}
+{"input_text": "Happy birthday", "animation_hint": "happy birthday"}  
+{"input_text": "I am watching", "animation_hint": "watching"}   
+{"input_text": "I am learning", "animation_hint": "book open"}
+{"input_text": "I am teaching", "animation_hint": "teaching"}
+{"input_text": "I am waiting", "animation_hint": "hurryup"}
+{"input_text": "I am thinking", "animation_hint": "thinking"}
+{"input_text": "I am sleeping", "animation_hint": "sleeping"}
+{"input_text": "I just woke up", "animation_hint": "stretches and smiles"}
+{"input_text": "I am announcing", "animation_hint": "announcing"} 
+{"input_text": "I am cleaning", "animation_hint": "cleaning"}
+{"input_text": "I am sweeping the floor", "animation_hint": "cleaning"}
+{"input_text": "sword fighting", "animation_hint": "cutting"}  
+{"input_text": "I am dancing", "animation_hint": "dancing"}   
+{"input_text": "I am shaking hands", "animation_hint": "handshake"}
+{"input_text": "I am clapping", "animation_hint": "clapping"}
+{"input_text": "I am laughing", "animation_hint": "laughing"}  
+{"input_text": "I am skating", "animation_hint": "skating"}
+{"input_text": "I am calling", "animation_hint": "calling"}
+{"input_text": "I am knocking", "animation_hint": "knock"} 
+{"input_text": "I am opening the door", "animation_hint": "opening the door"}
+{"input_text": "I am closing the door", "animation_hint": "closing"}
+{"input_text": "I am switching on light", "animation_hint": "switching on the light"}
+{"input_text": "I am turning it off", "animation_hint": "switching on the light"}
+{"input_text": "I am charging phone", "animation_hint": "charging the phone"}
+{"input_text": "It's raining", "animation_hint": "raining"} 
+{"input_text": "I am playing cricket", "animation_hint": "cricket"} 
+{"input_text": "I am checking time", "animation_hint": "checking time"}
+{"input_text": "I am calling someone", "animation_hint": "calling"}
+{"input_text": "I am sending a rocket", "animation_hint": "rocket"}
+{"input_text": "I am playing badminton", "animation_hint": "badminton"}
+{"input_text": "I am playing tennis", "animation_hint": "badminton"}
+{"input_text": "I am playing a violin", "animation_hint": "violin"}
+{"input_text": "I am driving the car", "animation_hint": "driving"}
+{"input_text": "I am swimming", "animation_hint": "swim"}
+{"input_text": "I am rowing", "animation_hint": "rowing"}
+{"input_text": "I am digging", "animation_hint": "gardening"}
+{"input_text": "I am planting a tree", "animation_hint": "gardening"}
+{"input_text": "It's five o'clock", "animation_hint": "checking time"}
+{"input_text": "checking time", "animation_hint": "checking time"}
+
+
+
