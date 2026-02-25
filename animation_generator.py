@@ -13,7 +13,7 @@ import re
 # so there are no heavy new dependencies).
 
 try:
-    from moviepy.editor import TextClip, ColorClip, CompositeVideoClip
+    from moviepy import TextClip, ColorClip, CompositeVideoClip
 except ImportError:  # pragma: no cover - just in case the dependency is missing
     TextClip = None
     ColorClip = None
@@ -54,7 +54,7 @@ def create_animation(hint: str, output_dir: str = "data/generated") -> str:
     filename = sanitize_hint(hint) + ".mp4"
     path = os.path.join(output_dir, filename)
 
-    if os.path.exists(path):
+    if os.path.exists(path) and os.path.getsize(path) > 0:
         return path
 
     # fallback: if moviepy isn't available just touch an empty file
@@ -62,14 +62,27 @@ def create_animation(hint: str, output_dir: str = "data/generated") -> str:
         open(path, "wb").close()
         return path
 
-    # create a 2‑second clip showing the hint text
-    txt_clip = TextClip(hint, fontsize=48, color="white", size=(640, 480), method="label")
-    bg = ColorClip(size=txt_clip.size, color=(0, 0, 0), duration=2)
-    clip = CompositeVideoClip([bg, txt_clip.set_position("center")])
-    clip = clip.set_duration(2)
-    # Write video quietly; moviepy prints a lot of info otherwise
-    clip.write_videofile(path, fps=24, codec="libx264", verbose=False, logger=None)
-    clip.close()
+    try:
+        # create a 2‑second clip showing the hint text
+        # MoviePy 2.x TextClip constructor
+        txt_clip = TextClip(
+            text=hint, 
+            font_size=48, 
+            color="white", 
+            size=(640, 480), 
+            method="label",
+            duration=2
+        )
+        bg = ColorClip(size=(640, 480), color=(0, 0, 0), duration=2)
+        clip = CompositeVideoClip([bg, txt_clip.with_position("center")])
+        
+        # Write video quietly; moviepy prints a lot of info otherwise
+        clip.write_videofile(path, fps=24, codec="libx264", logger=None)
+        clip.close()
+    except Exception as e:
+        print(f"Error generating animation with moviepy: {e}")
+        # fallback to empty file if moviepy fails (e.g. ImageMagick missing)
+        open(path, "wb").close()
 
     return path
 

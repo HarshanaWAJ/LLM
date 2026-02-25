@@ -69,3 +69,9 @@ app.mount("/animations", StaticFiles(directory="data/animations"), name="animati
 os.makedirs("static", exist_ok=True)
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
+
+if __name__ == "__main__":
+    import uvicorn
+    # This allows running the app directly with `python app.py`
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
