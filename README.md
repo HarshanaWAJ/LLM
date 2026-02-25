@@ -38,7 +38,13 @@ uvicorn app:app --host 0.0.0.0 --port 8000
 *(If you are already running this command somewhere else, you don't need to run it again!)*
 
 Once it prints `Application startup complete.`, open any Web Browser (e.g. Chrome, Edge) and go to:
-[http://localhost:8000](http://localhost:8000)
 
-Here you will see a sleek web application. There's an input box near the bottom. Type intents like `Where is the bathroom?` or `Call the doctor` or `I am so happy` into it. Press `Generate`, and the precise `.mp4` animation from your local library will auto-play on the screen.
+- **Application UI:** [http://localhost:8000/](http://localhost:8000/) – the prompt input and video player are served directly from the root.
+- **Raw animations (optional):** [http://localhost:8000/animations/](http://localhost:8000/animations/) shows the directory of available `.mp4` files.
+
+> ⚠️ **Important:** do **not** navigate to `/docs` or `/redoc` – those are the API documentation pages and do not contain the animation matcher interface.
+
+With the UI open, type intents like `Where is the bathroom?` or `Call the doctor` or `I am so happy`. Press **Generate**, and the corresponding `.mp4` animation from your library will auto-play on the screen.
+
+> **Note:** the backend now includes a simple animation generator.  When training the model it will automatically create placeholder videos for any hints that are missing from `data/animations`.  Likewise, both the command‑line and web interfaces generate a new `.mp4` file that exactly matches whatever text you type; this lets you build up a library of prompt‑specific clips over time.
 

@@ -270,7 +270,8 @@
                 statusMsg.className = 'status success';
                 
                 // Play video
-                player.src = `/data/animations/${encodeURIComponent(videoFile)}`;
+                // Use the simplified /animations mount configured in app.py
+                player.src = `/animations/${encodeURIComponent(videoFile)}`;
                 player.style.display = 'block';
                 placeholder.style.display = 'none';
                 
