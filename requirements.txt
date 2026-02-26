@@ -17,3 +17,4 @@ sentence-transformers==2.2.2
 fastapi==0.104.1
 uvicorn==0.24.0
 moviepy
+Pillow  # required for stick‑figure drawing in animation_generator
