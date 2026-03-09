@@ -3,7 +3,8 @@ transformers==4.35.0
 torch==2.1.0
 datasets==2.14.0
 pandas==2.1.0
-numpy==1.25.0
+numpy<2.0.0
+scipy
 scikit-learn==1.3.0
 matplotlib==3.8.0
 seaborn==0.13.0
@@ -17,4 +18,5 @@ sentence-transformers==2.2.2
 fastapi==0.104.1
 uvicorn==0.24.0
 moviepy
-Pillow  # required for stick‑figure drawing in animation_generator
+mediapipe
+Pillow  # required for stick-figure drawing in animation_generator

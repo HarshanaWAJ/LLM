@@ -24,7 +24,11 @@ MODEL_DIR = "model"
 # Load models globally
 print("Loading models for API...")
 try:
-    embedder = SentenceTransformer('all-MiniLM-L6-v2')
+    model_path = os.path.join(MODEL_DIR, "finetuned_model")
+    if os.path.exists(model_path):
+        embedder = SentenceTransformer(model_path)
+    else:
+        embedder = SentenceTransformer('all-MiniLM-L6-v2')
     data = np.load(os.path.join(MODEL_DIR, "embeddings.npz"))
     train_embeddings = data['X']
     train_labels = data['labels']
@@ -38,8 +42,8 @@ class PredictRequest(BaseModel):
 class PredictResponse(BaseModel):
     animation_file: str
 
-@app.post("/api/predict", response_model=PredictResponse)
-def predict_animation(req: PredictRequest):
+@app.post("/api/find", response_model=PredictResponse)
+def find_animation(req: PredictRequest):
     if not req.prompt.strip():
         raise HTTPException(status_code=400, detail="Prompt cannot be empty")
     
@@ -48,18 +52,37 @@ def predict_animation(req: PredictRequest):
     best_idx = np.argmax(similarities)
     pred_label = train_labels[best_idx]
     
-    # generate a clip that exactly matches the text supplied by the user
-    # so that a record exists in the animation directory
-    create_animation(req.prompt, "data/animations")
-
-    # Return the mapped animation filename
+    # Return the mapped canonical animation filename
     animation_file = f"{pred_label}.mp4"
     return PredictResponse(animation_file=animation_file)
 
+@app.post("/api/generate", response_model=PredictResponse)
+def generate_new_animation(req: PredictRequest):
+    if not req.prompt.strip():
+        raise HTTPException(status_code=400, detail="Prompt cannot be empty")
+    
+    # Still find the best semantic match to use as the base motion
+    emb = embedder.encode([req.prompt])
+    similarities = cosine_similarity(emb, train_embeddings)[0]
+    best_idx = np.argmax(similarities)
+    pred_label = train_labels[best_idx]
+    
+    # generate a custom clip that explicitly matches the text supplied by the user
+    # using the closest canonical video as the motion template
+    from animation_generator import sanitize_hint
+    create_animation(req.prompt, "data/generated")
+    
+    # return the newly generated custom video
+    safe_name = sanitize_hint(req.prompt)
+    animation_file = f"{safe_name}.mp4"
+    return PredictResponse(animation_file=animation_file)
+
 # Mount frontend files
-# Videos served from a simple /animations path; this keeps URIs short and avoids
+# Videos served from simple paths; this keeps URIs short and avoids
 # confusion about the data directory structure.
-app.mount("/animations", StaticFiles(directory="data/animations"), name="animations")
+app.mount("/api/animations", StaticFiles(directory="data/animations"), name="animations")
+os.makedirs("data/generated", exist_ok=True)
+app.mount("/api/generated_animations", StaticFiles(directory="data/generated"), name="generated_animations")
 
 # Serve the React/HTML interface directly at the root path.  Setting html=True
 # makes the static mount return index.html for / automatically, so users only

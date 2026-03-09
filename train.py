@@ -80,27 +80,50 @@ def main():
     print("Loading embedding model...")
     embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
-    print("Generating embeddings...")
-    X = embedder.encode(valid_texts, show_progress_bar=True)
+    print("Finetuning model...")
+    try:
+        from sentence_transformers import InputExample, losses
+        from torch.utils.data import DataLoader
+        
+        train_examples = []
+        for text, label in zip(valid_texts, valid_target_labels):
+            # We want the prompt to be close to its canonical animation label
+            label_text = label.replace("_", " ")
+            train_examples.append(InputExample(texts=[text, label_text]))
+            
+        train_dataloader = DataLoader(train_examples, shuffle=True, batch_size=16)
+        train_loss = losses.MultipleNegativesRankingLoss(model=embedder)
+        
+        print("Starting training...")
+        # Adjust epochs as needed
+        embedder.fit(train_objectives=[(train_dataloader, train_loss)], epochs=10, warmup_steps=10)
+    except Exception as e:
+        print(f"Warning: Finetuning failed or is not supported (error: {e}). Proceeding without finetuning.")
+
+    print("Generating canonical label embeddings...")
+    # Get unique labels to act as targets
+    unique_labels = sorted(list(set(valid_target_labels)))
+    unique_labels_texts = [l.replace("_", " ") for l in unique_labels]
+    label_embeddings = embedder.encode(unique_labels_texts, show_progress_bar=True)
 
     print("Saving embeddings...")
-    np.savez(os.path.join(MODEL_DIR, "embeddings.npz"), X=X, labels=np.array(valid_target_labels))
+    os.makedirs(MODEL_DIR, exist_ok=True)
+    embedder.save(os.path.join(MODEL_DIR, "finetuned_model"))
+    np.savez(os.path.join(MODEL_DIR, "embeddings.npz"), X=label_embeddings, labels=np.array(unique_labels))
 
     print("Evaluating nearest neighbor...")
     correct = 0
-    for i in range(len(X)):
-        train_X = np.delete(X, i, axis=0)  # leave-one-out
-        train_labels = np.delete(np.array(valid_target_labels), i)
-        similarities = cosine_similarity([X[i]], train_X)[0]
+    # Evaluate accuracy on the tuning dataset to see if it mapped them to the right canonical label
+    eval_embeddings = embedder.encode(valid_texts, show_progress_bar=False)
+    for i in range(len(valid_texts)):
+        similarities = cosine_similarity([eval_embeddings[i]], label_embeddings)[0]
         best_idx = np.argmax(similarities)
-        pred_label = train_labels[best_idx]
+        pred_label = unique_labels[best_idx]
         if pred_label == valid_target_labels[i]:
             correct += 1
 
-    accuracy = correct / len(X)
-    print(f"Leave-one-out accuracy: {accuracy * 100:.2f}%")
-    print(f"Model saved to {MODEL_DIR}/mlp_classifier.joblib")
-    print(f"Label encoder saved to {MODEL_DIR}/label_encoder.joblib")
+    accuracy = correct / len(valid_texts)
+    print(f"Accuracy mapping text to animation labels: {accuracy * 100:.2f}%")
     print("Done!")
 
 

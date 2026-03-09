@@ -169,12 +169,12 @@
         }
 
         button {
-            padding: 0 32px;
+            padding: 0 24px;
             border-radius: 100px;
             background: var(--primary);
             color: white;
             border: none;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
@@ -182,13 +182,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 140px;
+            min-width: 130px;
+            gap: 8px;
+        }
+
+        button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
         }
 
         button:hover {
-            background: var(--primary-hover);
             transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2);
+        }
+
+        button:not(.secondary):hover {
+            background: var(--primary-hover);
             box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        button.secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         button:active {
@@ -247,9 +261,13 @@
         <form id="promptForm" class="input-group">
             <input type="text" id="promptInput" placeholder="e.g., I'm feeling happy, call the doctor..."
                 autocomplete="off" required>
-            <button type="submit" id="submitBtn">
-                <span id="btnText">Generate</span>
-                <div class="loading-spinner" id="spinner"></div>
+            <button type="button" id="btnFind" class="secondary">
+                <span class="btnText">Find Existing</span>
+                <div class="loading-spinner spinner"></div>
+            </button>
+            <button type="button" id="btnGenerate">
+                <span class="btnText">Generate New</span>
+                <div class="loading-spinner spinner"></div>
             </button>
         </form>
 
@@ -261,30 +279,45 @@
         const input = document.getElementById('promptInput');
         const player = document.getElementById('player');
         const placeholder = document.getElementById('placeholder');
-        const btnText = document.getElementById('btnText');
-        const spinner = document.getElementById('spinner');
         const statusMsg = document.getElementById('statusMessage');
+        const btnFind = document.getElementById('btnFind');
+        const btnGenerate = document.getElementById('btnGenerate');
 
         // Focus input on load
         window.addEventListener('load', () => {
             input.focus();
         });
 
-        form.addEventListener('submit', async (e) => {
+        // Let enter key trigger a default find
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
+            handleAction('/api/find', btnFind);
+        });
+
+        btnFind.addEventListener('click', () => handleAction('/api/find', btnFind));
+        btnGenerate.addEventListener('click', () => handleAction('/api/generate', btnGenerate));
+
+        async function handleAction(endpoint, clickedBtn) {
             const prompt = input.value.trim();
             if (!prompt) return;
 
-            console.log('Sending prompt:', prompt);
+            console.log(`Sending prompt to ${endpoint}:`, prompt);
 
             // UI Loading state
+            const btnText = clickedBtn.querySelector('.btnText');
+            const spinner = clickedBtn.querySelector('.spinner');
+            const originalText = btnText.textContent;
+
+            btnFind.disabled = true;
+            btnGenerate.disabled = true;
             btnText.style.display = 'none';
             spinner.style.display = 'block';
-            statusMsg.textContent = 'Analyzing intent...';
+
+            statusMsg.textContent = endpoint === '/api/generate' ? 'Generating custom stick-figure video...' : 'Searching canonical animations...';
             statusMsg.className = 'status';
 
             try {
-                const response = await fetch('/api/predict', {
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt })
@@ -292,21 +325,26 @@
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.detail || 'Failed to get prediction');
+                    throw new Error(errorData.detail || 'Failed to process request');
                 }
 
                 const data = await response.json();
                 const videoFile = data.animation_file;
 
-                console.log('Received prediction:', videoFile);
+                console.log('Received response:', videoFile);
 
                 // Success
-                statusMsg.textContent = `Matched Intent: ${videoFile.replace('.mp4', '')}`;
+                statusMsg.textContent = endpoint === '/api/generate' ? `Generated custom video: ${videoFile.replace('.mp4', '')}` : `Matched canonical animation: ${videoFile.replace('.mp4', '')}`;
                 statusMsg.className = 'status success';
 
                 // Play video
-                // Use the simplified /animations mount configured in app.py
-                const videoUrl = `/animations/${encodeURIComponent(videoFile)}`;
+                let videoUrl = "";
+                if (endpoint === '/api/generate') {
+                    videoUrl = `/api/generated_animations/${encodeURIComponent(videoFile)}?t=${new Date().getTime()}`; // cache bust for generated
+                } else {
+                    videoUrl = `/api/animations/${encodeURIComponent(videoFile)}`;
+                }
+
                 console.log('Loading video from:', videoUrl);
 
                 player.src = videoUrl;
@@ -324,10 +362,13 @@
                 statusMsg.className = 'status error';
             } finally {
                 // Restore button
+                btnFind.disabled = false;
+                btnGenerate.disabled = false;
                 btnText.style.display = 'block';
                 spinner.style.display = 'none';
+                btnText.textContent = originalText;
             }
-        });
+        }
 
         // Add handler for video load errors
         player.addEventListener('error', (e) => {
